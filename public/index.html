@@ -1,0 +1,981 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Montrose Massage | Luxury In-Home Wellness</title>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Font Awesome for Social Media & Instagram Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #113f48;
+            --accent: #d4a373;
+            --overlay-dark: rgba(11, 35, 40, 0.75);
+            --card-bg: rgba(255, 255, 255, 0.88);
+            --text-main: #1a202c;
+            --text-muted: #4a5568;
+            --border: rgba(226, 232, 240, 0.8);
+            --star: #f59e0b;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Plus Jakarta Sans', sans-serif; }
+
+        body {
+            background: linear-gradient(var(--overlay-dark), var(--overlay-dark)), 
+                        url('https://images.unsplash.com/photo-1540555700478-4be289fbecef?auto=format&fit=crop&w=2000&q=85') no-repeat center center fixed;
+            background-size: cover;
+            color: var(--text-main);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            align-items: center;
+            padding: 40px 20px 0 20px;
+        }
+
+        header {
+            width: 100%;
+            max-width: 900px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 12px 24px;
+            backdrop-filter: blur(12px);
+            background: rgba(17, 63, 72, 0.4);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            border-radius: 12px;
+            margin-bottom: 30px;
+        }
+
+        .brand-logo-area {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .logo-img {
+            width: 42px;
+            height: 42px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 1.5px solid var(--accent);
+        }
+
+        .brand-title {
+            color: #ffffff;
+            font-size: 1.05rem;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+        }
+
+        .brand-subtitle {
+            color: #cbd5e1;
+            font-size: 0.7rem;
+            letter-spacing: 0.3px;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 40px;
+            color: #ffffff;
+        }
+
+        .section-header h2 {
+            font-size: 2.2rem;
+            font-weight: 600;
+            margin-bottom: 8px;
+            letter-spacing: -0.5px;
+        }
+
+        .section-header p {
+            color: #cbd5e1;
+            font-size: 0.95rem;
+        }
+
+        /* Therapists Section Top Layout */
+        .therapist-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 25px;
+            width: 100%;
+            max-width: 1100px;
+            margin-bottom: 50px;
+        }
+
+        .therapist-card {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.4);
+            border-radius: 16px;
+            padding: 24px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+            transition: transform 0.3s ease, border-color 0.3s ease;
+        }
+
+        .therapist-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--accent);
+        }
+
+        .therapist-link {
+            text-decoration: none;
+            color: inherit;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            cursor: pointer;
+        }
+
+        .therapist-avatar {
+            width: 90px;
+            height: 90px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 2px solid var(--accent);
+            margin-bottom: 12px;
+            transition: transform 0.2s ease;
+        }
+
+        .therapist-link:hover .therapist-avatar {
+            transform: scale(1.05);
+        }
+
+        .therapist-name {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 4px;
+        }
+
+        .therapist-link:hover .therapist-name {
+            color: var(--accent);
+        }
+
+        .specialty-badge {
+            color: var(--primary);
+            background: rgba(17, 63, 72, 0.1);
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            padding: 4px 10px;
+            border-radius: 20px;
+            margin-bottom: 10px;
+            letter-spacing: 0.5px;
+        }
+
+        .rating-box {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            margin-bottom: 12px;
+        }
+
+        .rating-box span {
+            color: var(--star);
+            font-weight: bold;
+        }
+
+        .therapist-bio {
+            color: var(--text-muted);
+            font-size: 0.85rem;
+            line-height: 1.5;
+            margin-bottom: 15px;
+            flex-grow: 1;
+        }
+
+        .therapist-video-wrapper {
+            width: 100%;
+            border-radius: 8px;
+            overflow: hidden;
+            margin-bottom: 15px;
+            background: #000;
+        }
+
+        .therapist-video {
+            width: 100%;
+            height: 140px;
+            object-fit: cover;
+            border: none;
+            display: block;
+        }
+
+        .book-now-btn {
+            background-color: var(--primary);
+            color: #ffffff;
+            border: none;
+            width: 100%;
+            padding: 12px;
+            border-radius: 10px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.2s;
+            text-decoration: none;
+            display: inline-block;
+            text-align: center;
+        }
+
+        .book-now-btn:hover {
+            background-color: #0b292f;
+        }
+
+        .reviews-link-btn {
+            margin-bottom: 8px; 
+            background: transparent; 
+            color: var(--primary); 
+            border: 1px solid var(--border);
+        }
+
+        .reviews-link-btn:hover {
+            background: rgba(17, 63, 72, 0.05);
+            color: var(--primary);
+        }
+
+        /* Booking Form Card Section */
+        .container {
+            width: 100%;
+            max-width: 650px;
+            margin-bottom: 50px;
+        }
+
+        .card {
+            background: var(--card-bg);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-radius: 20px;
+            padding: 45px 40px;
+            border: 1px solid rgba(255, 255, 255, 0.4);
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.35);
+        }
+
+        .card-header-text {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .card-header-text h2 {
+            font-size: 1.75rem;
+            color: var(--primary);
+            font-weight: 700;
+            letter-spacing: -0.5px;
+            margin-bottom: 6px;
+        }
+
+        .card-header-text p {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            letter-spacing: 0.2px;
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+        }
+
+        .form-group {
+            margin-bottom: 18px;
+        }
+
+        .form-group.full-width {
+            grid-column: span 2;
+        }
+
+        label {
+            display: block;
+            font-weight: 600;
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            margin-bottom: 6px;
+            color: var(--text-muted);
+            letter-spacing: 0.8px;
+        }
+
+        input, select {
+            width: 100%;
+            padding: 13px 16px;
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            font-size: 0.95rem;
+            background-color: rgba(255, 255, 255, 0.9);
+            color: var(--text-main);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        input:focus, select:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 4px rgba(17, 63, 72, 0.12);
+            background-color: #ffffff;
+        }
+
+        .promo-box {
+            display: flex;
+            gap: 10px;
+        }
+
+        .promo-btn {
+            background-color: var(--primary);
+            color: #ffffff;
+            border: none;
+            padding: 0 18px;
+            border-radius: 10px;
+            font-weight: 600;
+            font-size: 0.85rem;
+            cursor: pointer;
+            transition: background-color 0.2s;
+            white-space: nowrap;
+        }
+
+        .promo-btn:hover {
+            background-color: #0b292f;
+        }
+
+        .promo-status {
+            font-size: 0.75rem;
+            margin-top: 6px;
+            font-weight: 600;
+        }
+
+        .price-display-box {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+            background: rgba(17, 63, 72, 0.06);
+            border: 1px solid var(--border);
+            padding: 12px 16px;
+            border-radius: 10px;
+        }
+
+        .price-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .btn {
+            background-color: var(--primary);
+            color: #ffffff;
+            border: none;
+            width: 100%;
+            padding: 16px;
+            border-radius: 10px;
+            font-size: 0.95rem;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            cursor: pointer;
+            margin-top: 10px;
+            transition: all 0.25s ease;
+            box-shadow: 0 10px 20px rgba(17, 63, 72, 0.25);
+        }
+
+        .btn:hover {
+            background-color: #0b292f;
+            transform: translateY(-1px);
+            box-shadow: 0 14px 24px rgba(17, 63, 72, 0.3);
+        }
+
+        .instagram-card {
+            position: relative;
+            border-radius: 12px;
+            overflow: hidden;
+            display: block;
+        }
+
+        .instagram-overlay {
+            position: absolute;
+            inset: 0;
+            background: rgba(17, 63, 72, 0.75);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .instagram-card:hover .instagram-overlay {
+            opacity: 1;
+        }
+
+        .insta-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%);
+            color: #ffffff;
+            padding: 12px 28px;
+            border-radius: 30px;
+            font-weight: 700;
+            text-decoration: none;
+            box-shadow: 0 4px 15px rgba(220, 39, 67, 0.3);
+            transition: transform 0.2s ease;
+        }
+
+        .insta-btn:hover {
+            transform: translateY(-2px);
+        }
+
+        .footer-note {
+            text-align: center;
+            font-size: 0.75rem;
+            color: rgba(255, 255, 255, 0.7);
+            letter-spacing: 0.5px;
+            margin-bottom: 40px;
+        }
+
+        .faq-item {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 15px;
+            text-align: left;
+        }
+
+        .faq-question {
+            font-size: 1.05rem;
+            font-weight: 600;
+            color: var(--accent);
+            margin-bottom: 8px;
+        }
+
+        .faq-answer {
+            font-size: 0.9rem;
+            color: #cbd5e1;
+            line-height: 1.6;
+        }
+
+        @media(max-width: 600px) {
+            .form-grid { grid-template-columns: 1fr; }
+            .form-group.full-width { grid-column: span 1; }
+            .card { padding: 30px 20px; }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="brand-logo-area">
+            <img src="togo.PNG" alt="Logo" class="logo-img">
+            <div>
+                <div class="brand-title">Montrose Massage</div>
+                <div class="brand-subtitle">Luxury In-Home Wellness</div>
+            </div>
+        </div>
+    </header>
+
+    <!-- SECTION 1: Master Therapists & Reviews -->
+    <div class="section-header">
+        <h2>Meet Our Master Therapists</h2>
+        <p>Licensed practitioners delivering certified therapy directly to your doorstep.</p>
+    </div>
+
+    <div class="therapist-grid">
+        <!-- Practitioner 1 -->
+        <div class="therapist-card">
+            <a href="therapy-reviews.html?therapist=Lucia" class="therapist-link">
+                <img src="lucia.PNG" alt="Lucia Bass" class="therapist-avatar">
+                <h3 class="therapist-name">Lucia Bass</h3>
+            </a>
+            <span class="specialty-badge">Deep Tissue & Sports</span>
+            <div class="rating-box"><span>★ 4.9</span> (742 verified reviews)</div>
+            <p class="therapist-bio">8+ years of clinical experience specializing in muscular pain relief and postural correction.</p>
+            <div class="therapist-video-wrapper">
+                <video class="therapist-video" controls poster="video1-poster.jpg">
+                    <source src="video1.mp4" type="video/mp4">
+                </video>
+            </div>
+            <a href="therapy-reviews.html?therapist=Lucia" class="book-now-btn reviews-lins-btn">Read 700+ Reviews</a>
+            <button class="book-now-btn" onclick="selectTherapistAndScroll('Lucia Bass')">Book Now</button>
+        </div>
+
+        <!-- Practitioner 2 -->
+        <div class="therapist-card">
+            <a href="therapy-reviews.html?therapist=veronica" class="therapist-link">
+                <img src="Veronica.PNGg" alt="Veronica Ochoa" class="therapist-avatar">
+                <h3 class="therapist-name">Veronica Ochoa</h3>
+            </a>
+            <span class="specialty-badge">Swedish & Trigger Point</span>
+            <div class="rating-box"><span>★ 4.8</span> (718 verified reviews)</div>
+            <p class="therapist-bio">Expert in tension release and stress reduction, tailoring each stroke to full-body relaxation.</p>
+            <div class="therapist-video-wrapper">
+                <video class="therapist-video" controls poster="video2-poster.jpg">
+                    <source src="video2.mp4" type="video/mp4">
+                </video>
+            </div>
+            <a href="therapy-reviews.html?therapist=veronica" class="book-now-btn reviews-link-btn">Read 700+ Reviews</a>
+            <button class="book-now-btn" onclick="selectTherapistAndScroll('Veronica Ochoa')">Book Now</button>
+        </div>
+
+        <!-- Practitioner 3 -->
+        <div class="therapist-card">
+            <a href="therapy-reviews.html?therapist=friedrich" class="therapist-link">
+                <img src="friedrich.PNG" alt="Friedrich Adolf" class="therapist-avatar">
+                <h3 class="therapist-name">Friedrich Adolf</h3>
+            </a>
+            <span class="specialty-badge">Holistic & Prenatal</span>
+            <div class="rating-box"><span>★ 5.0</span> (789 verified reviews)</div>
+            <p class="therapist-bio">Certified practitioner focused on gentle prenatal therapy and restorative holistic healing.</p>
+            <div class="therapist-video-wrapper">
+                <video class="therapist-video" controls poster="video3-poster.jpg">
+                    <source src="video3.mp4" type="video/mp4">
+                </video>
+            </div>
+            <a href="therapy-reviews.html?therapist=friedrich" class="book-now-btn reviews-link-btn">Read 700+ Reviews</a>
+            <button class="book-now-btn" onclick="selectTherapistAndScroll('Friedrich Adolf')">Book Now</button>
+        </div>
+
+        <!-- Practitioner 4 -->
+        <div class="therapist-card">
+            <a href="therapy-reviews.html?therapist=Malone" class="therapist-link">
+                <img src="malone.PNG" alt="Malone Alexis" class="therapist-avatar">
+                <h3 class="therapist-name">Malone Alexis</h3>
+            </a>
+            <span class="specialty-badge">Sports & Myofascial</span>
+            <div class="rating-box"><span>★ 4.9</span> (704 verified reviews)</div>
+            <p class="therapist-bio">Dedicated to athletic recovery, joint mobility enhancement, and targeted muscle relief.</p>
+            <div class="therapist-video-wrapper">
+                <video class="therapist-video" controls poster="video4-poster.jpg">
+                    <source src="video4.mp4" type="video/mp4">
+                </video>
+            </div>
+            <a href="therapy-reviews.html?therapist=Malone" class="book-now-btn reviews-link-btn">Read 700+ Reviews</a>
+            <button class="book-now-btn" onclick="selectTherapistAndScroll('Malone Alexis')">Book Now</button>
+        </div>
+    </div>
+
+    <!-- SECTION 2: Booking Form -->
+    <div class="container" id="bookingFormSection">
+        <div class="card">
+            <div class="card-header-text">
+                <h2>Experience Ultimate Relaxation</h2>
+                <p>Customize your professional in-home wellness session below</p>
+            </div>
+
+            <form id="bookingForm">
+                <div class="form-grid">
+                    <div class="form-group full-width">
+                        <label for="currency">Currency / Preferred Payment</label>
+                        <select id="currency" onchange="updatePrice()">
+                            <option value="USD">🇺🇸 USD - United States Dollar ($)</option>
+                            <option value="CAD" selected>🇨🇦 CAD - Canadian Dollar ($)</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group full-width">
+                        <label for="fullName">Full Name</label>
+                        <input type="text" id="fullName" placeholder="Enter your full name" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="phone">Phone Number</label>
+                        <input type="tel" id="phone" placeholder="(514) 000-0000" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="email">Email Address</label>
+                        <input type="email" id="email" placeholder="name@example.com" required>
+                    </div>
+                    
+                    <div class="form-group full-width">
+                        <label for="address">Service Address </label>
+                        <input type="text" id="address" placeholder="Street address, apartment suite, or hotel name" required>
+                    </div>
+
+                    <div class="form-group full-width">
+                        <label for="preferredTherapist">Preferred Therapist</label>
+                        <select id="preferredTherapist">
+                            <option value="Any Available">Any Available Specialist</option>
+                            <option value="Lucia Bass">Lucia Bass- Deep Tissue & Sports Recovery</option>
+                            <option value="Veronica Ochoa">Veronica Ochoa - Swedish & Trigger Point</option>
+                            <option value="friedrich Adolf">friedrich Adolf - Holistic & Prenatal Specialist</option>
+                            <option value="Malone Alexis">Malone Alexis - Sports Mobility & Myofascial</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="serviceType">Service Type</label>
+                        <select id="serviceType" onchange="updatePrice()">
+                            <option value="Swedish Massage">Swedish Relaxation</option>
+                            <option value="Deep Tissue">Deep Tissue Recovery</option>
+                            <option value="Couples Massage">Couples Retreat</option>
+                            <option value="Prenatal Massage">Prenatal Care</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="duration">Duration</label>
+                        <select id="duration" onchange="updatePrice()">
+                            <option value="60">60 Minutes</option>
+                            <option value="90">90 Minutes</option>
+                            <option value="120">120 Minutes</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group full-width">
+                        <label for="promoCode">Promo Code</label>
+                        <div class="promo-box">
+                            <input type="text" id="promoCode" placeholder="Enter code (e.g. SAVE15 or UNLOCK15)" style="text-transform: uppercase;">
+                            <button type="button" class="promo-btn" onclick="applyPromoCode()">Apply</button>
+                        </div>
+                        <div id="promoStatus" class="promo-status"></div>
+                    </div>
+
+                    <div class="form-group full-width">
+                        <label id="totalPriceLabel">Total Price (CAD)</label>
+                        <div class="price-display-box">
+                            <div class="price-row">
+                                <span style="font-size: 0.85rem; color: var(--text-muted);">Base Price</span>
+                                <span id="basePriceDisplay" style="font-size: 0.95rem; font-weight: 600; color: var(--text-main);">$110 CAD</span>
+                            </div>
+                            <div class="price-row" id="discountRow" style="display: none;">
+                                <span style="font-size: 0.85rem; color: #16a34a;">Discount (15%)</span>
+                                <span id="discountDisplay" style="font-size: 0.95rem; font-weight: 600; color: #16a34a;">-$16.50 CAD</span>
+                            </div>
+                            <hr style="border: none; border-top: 1px solid var(--border); margin: 6px 0;">
+                            <div class="price-row">
+                                <span style="font-size: 0.9rem; font-weight: 700; color: var(--primary);">Total Due</span>
+                                <span id="displayPrice" style="color: var(--primary); font-size: 1.25rem; font-weight: 700;">$110 CAD</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="date">Date</label>
+                        <input type="date" id="date" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="timeSlot">Time Slot</label>
+                        <select id="timeSlot">
+                            <option value="Morning">Morning (9 AM - 12 PM)</option>
+                            <option value="Afternoon">Afternoon (1 PM - 4 PM)</option>
+                            <option value="Evening">Evening (5 PM - 8 PM)</option>
+                        </select>
+                    </div>
+                </div>
+                
+                <button type="submit" class="btn" id="submitBtn">Proceed to Mandatory Payment</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Core Services Section -->
+    <section id="services" style="width: 100%; background-color: #000000; color: #ffffff; padding: 100px 20px; border-top: 1px solid rgba(255,255,255,0.1);">
+        <div style="max-width: 1000px; margin: 0 auto;">
+            <div style="text-align: center; margin-bottom: 60px;">
+                <h2 style="font-size: 32px; font-weight: 500; margin-bottom: 15px;">Core Services</h2>
+                <p style="color: #888888; font-size: 15px;">Engineered physical recovery treatments brought directly to your location with professional equipment.</p>
+            </div>
+            
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 25px;">
+                <div style="background: rgba(255,255,255,0.02); padding: 35px 30px; border-radius: 4px; border: 1px solid rgba(255,255,255,0.08); display: flex; flex-direction: column; justify-content: space-between;">
+                    <div>
+                        <h3 style="font-size: 18px; margin-bottom: 15px;">Deep Tissue Recovery</h3>
+                        <p style="color: #777777; font-size: 14px; margin-bottom: 25px;">Focused pressure targeting inner muscle layers and connective tissue to release chronic tension and restrictions.</p>
+                    </div>
+                    <div>
+                        <div style="font-size: 16px; font-weight: 600; margin-bottom: 15px;">
+                            <span class="service-card-price">$130 CAD</span> <span style="font-size: 12px; color: #666;">/ session</span>
+                        </div>
+                        <button onclick="scrollToBooking()" style="width: 100%; border: none; background: #ffffff; color: #000000; padding: 12px; border-radius: 4px; font-size: 13px; font-weight: 500; cursor: pointer;">Book Session (15% OFF)</button>
+                    </div>
+                </div>
+
+                <div style="background: rgba(255,255,255,0.02); padding: 35px 30px; border-radius: 4px; border: 1px solid rgba(255,255,255,0.08); display: flex; flex-direction: column; justify-content: space-between;">
+                    <div>
+                        <h3 style="font-size: 18px; margin-bottom: 15px;">Swedish Relaxation</h3>
+                        <p style="color: #777777; font-size: 14px; margin-bottom: 25px;">Fluid, long-stroke techniques designed to calm the nervous system, boost circulation, and reduce daily stress.</p>
+                    </div>
+                    <div>
+                        <div style="font-size: 16px; font-weight: 600; margin-bottom: 15px;">
+                            <span class="service-card-price">$110 CAD</span> <span style="font-size: 12px; color: #666;">/ session</span>
+                        </div>
+                        <button onclick="scrollToBooking()" style="width: 100%; border: none; background: #ffffff; color: #000000; padding: 12px; border-radius: 4px; font-size: 13px; font-weight: 500; cursor: pointer;">Book Session (15% OFF)</button>
+                    </div>
+                </div>
+
+                <div style="background: rgba(255,255,255,0.02); padding: 35px 30px; border-radius: 4px; border: 1px solid rgba(255,255,255,0.08); display: flex; flex-direction: column; justify-content: space-between;">
+                    <div>
+                        <h3 style="font-size: 18px; margin-bottom: 15px;">Sports Performance</h3>
+                        <p style="color: #777777; font-size: 14px; margin-bottom: 25px;">Targeted mobility work and dynamic stretching optimized for peak physical performance and rapid athletic recovery.</p>
+                    </div>
+                    <div>
+                        <div style="font-size: 16px; font-weight: 600; margin-bottom: 15px;">
+                            <span class="service-card-price">$110 CAD</span> <span style="font-size: 12px; color: #666;">/ session</span>
+                        </div>
+                        <button onclick="scrollToBooking()" style="width: 100%; border: none; background: #ffffff; color: #000000; padding: 12px; border-radius: 4px; font-size: 13px; font-weight: 500; cursor: pointer;">Book Session (15% OFF)</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECTION 3: Instagram Feed & Community -->
+    <section id="instagram" style="width: 100%; background-color: #0b2328; color: #ffffff; padding: 80px 20px; border-top: 1px solid rgba(255,255,255,0.1); text-align: center;">
+        <div style="max-width: 1100px; margin: 0 auto;">
+            <div style="margin-bottom: 35px;">
+                <span style="background-color: rgba(212, 163, 115, 0.15); color: var(--accent); font-size: 0.8rem; font-weight: 700; padding: 6px 16px; border-radius: 20px; text-transform: uppercase; letter-spacing: 1px;">
+                    <i class="fa-brands fa-instagram" style="margin-right: 6px;"></i> Community & Gallery
+                </span>
+                <h2 style="color: #ffffff; margin-top: 15px; font-size: 2.2rem; font-weight: 600;">@THEMontroseMassage</h2>
+                <p style="color: #cbd5e1; font-size: 0.95rem; margin-top: 5px;">Tag us in your post-massage relaxation moments to be featured.</p>
+            </div>
+
+            <!-- Instagram Grid -->
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 16px; margin-bottom: 40px;">
+                <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" class="instagram-card">
+                    <img src="https://images.unsplash.com/photo-1540555700478-4be289fbecef?auto=format&fit=crop&w=400&q=80" alt="Instagram Post 1" style="width: 100%; height: 260px; object-fit: cover; display: block;">
+                    <div class="instagram-overlay">
+                        <span style="color: #ffffff; font-weight: 600; font-size: 0.9rem;"><i class="fa-solid fa-heart" style="color: #e11d48; margin-right: 6px;"></i> 342 Likes</span>
+                    </div>
+                </a>
+
+                <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" class="instagram-card">
+                    <img src="https://images.unsplash.com/photo-1519823551278-64ac92734fb1?auto=format&fit=crop&w=400&q=80" alt="Instagram Post 2" style="width: 100%; height: 260px; object-fit: cover; display: block;">
+                    <div class="instagram-overlay">
+                        <span style="color: #ffffff; font-weight: 600; font-size: 0.9rem;"><i class="fa-solid fa-heart" style="color: #e11d48; margin-right: 6px;"></i> 518 Likes</span>
+                    </div>
+                </a>
+
+                <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" class="instagram-card">
+                    <img src="https://images.unsplash.com/photo-1507652313519-d4e9174996dd?auto=format&fit=crop&w=400&q=80" alt="Instagram Post 3" style="width: 100%; height: 260px; object-fit: cover; display: block;">
+                    <div class="instagram-overlay">
+                        <span style="color: #ffffff; font-weight: 600; font-size: 0.9rem;"><i class="fa-solid fa-heart" style="color: #e11d48; margin-right: 6px;"></i> 289 Likes</span>
+                    </div>
+                </a>
+
+                <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" class="instagram-card">
+                    <img src="https://images.unsplash.com/photo-1515377905703-c4788e51af15?auto=format&fit=crop&w=400&q=80" alt="Instagram Post 4" style="width: 100%; height: 260px; object-fit: cover; display: block;">
+                    <div class="instagram-overlay">
+                        <span style="color: #ffffff; font-weight: 600; font-size: 0.9rem;"><i class="fa-solid fa-heart" style="color: #e11d48; margin-right: 6px;"></i> 407 Likes</span>
+                    </div>
+                </a>
+            </div>
+
+            <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" class="insta-btn">
+                <i class="fa-brands fa-instagram" style="font-size: 1.1rem;"></i> Follow Us on Instagram
+            </a>
+        </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section id="faq" style="width: 100%; background-color: #050b0c; color: #ffffff; padding: 100px 20px; border-top: 1px solid rgba(255,255,255,0.1);">
+        <div style="max-width: 800px; margin: 0 auto; text-align: center;">
+            <h2 style="font-size: 2.2rem; font-weight: 600; margin-bottom: 12px; letter-spacing: -0.5px;">Frequently Asked Questions</h2>
+            <p style="color: #94a3b8; font-size: 0.95rem; margin-bottom: 50px;">Everything you need to know about our in-home luxury massage services.</p>
+
+            <div class="faq-item">
+                <div class="faq-question">What do I need to prepare before the therapist arrives?</div>
+                <div class="faq-answer">Nothing at all! Our therapists bring everything required, including a professional massage table, fresh luxury linens, organic oils, and ambient music. All you need is a clear space (about 8x5 feet).</div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question">Are all therapists licensed and background-checked?</div>
+                <div class="faq-answer">Yes, every practitioner on our platform is fully licensed, certified, insured, and thoroughly background-checked to guarantee the highest standard of safety and care.</div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question">Can I choose a specific therapist?</div>
+                <div class="faq-answer">Absolutely. You can select your preferred specialist in the booking form based on their expertise and video introductions.</div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question">What is your cancellation policy?</div>
+                <div class="faq-answer">You can cancel or reschedule free of charge up to 4 hours before your scheduled appointment time.</div>
+            </div>
+        </div>
+    </section>
+
+    <div class="footer-note">
+        <div style="margin-bottom: 12px; display: flex; justify-content: center; gap: 16px; font-size: 1.2rem;">
+            <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" style="color: rgba(255,255,255,0.7); transition: color 0.2s;"><i class="fa-brands fa-instagram"></i></a>
+            <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" style="color: rgba(255,255,255,0.7); transition: color 0.2s;"><i class="fa-brands fa-facebook"></i></a>
+            <a href="https://twitter.com" target="_blank" rel="noopener noreferrer" style="color: rgba(255,255,255,0.7); transition: color 0.2s;"><i class="fa-brands fa-x-twitter"></i></a>
+        </div>
+        &copy; 2026 Montrose Massage. All rights reserved. Secure SSL Encryption.
+    </div>
+
+    <!-- Scripts -->
+    <script>
+        function selectTherapistAndScroll(therapistName) {
+            const selectElem = document.getElementById('preferredTherapist');
+            for (let i = 0; i < selectElem.options.length; i++) {
+                if (selectElem.options[i].value.includes(therapistName)) {
+                    selectElem.selectedIndex = i;
+                    break;
+                }
+            }
+            scrollToBooking();
+        }
+
+        function scrollToBooking() {
+            document.getElementById('bookingFormSection').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        const priceChart = {
+            "CAD": {
+                "Swedish Massage": { "60": 110, "90": 145, "120": 185 },
+                "Deep Tissue":     { "60": 130, "90": 165, "120": 205 },
+                "Couples Massage": { "60": 220, "90": 280, "120": 350 },
+                "Prenatal Massage":{ "60": 120, "90": 155, "120": 195 }
+            },
+            "USD": {
+                "Swedish Massage": { "60": 85,  "90": 115, "120": 145 },
+                "Deep Tissue":     { "60": 100, "90": 125, "120": 155 },
+                "Couples Massage": { "60": 170, "90": 215, "120": 270 },
+                "Prenatal Massage":{ "60": 95,  "90": 120, "120": 150 }
+            }
+        };
+
+        let activeDiscountPercent = 0;
+        let activeAppliedCode = "";
+
+        function updatePrice() {
+            const currency = document.getElementById('currency').value;
+            const service = document.getElementById('serviceType').value;
+            const duration = document.getElementById('duration').value;
+            
+            const currentChart = priceChart[currency] || priceChart["CAD"];
+            const basePrice = currentChart[service] && currentChart[service][duration] ? currentChart[service][duration] : 110;
+
+            document.getElementById('totalPriceLabel').innerText = `Total Price (${currency})`;
+            document.getElementById('basePriceDisplay').innerText = `$${basePrice} ${currency}`;
+
+            if (activeDiscountPercent > 0) {
+                const discountAmount = basePrice * activeDiscountPercent;
+                const finalPrice = basePrice - discountAmount;
+
+                document.getElementById('discountDisplay').innerText = `-$${discountAmount.toFixed(2)} ${currency}`;
+                document.getElementById('discountRow').style.display = 'flex';
+                document.getElementById('displayPrice').innerText = `$${finalPrice.toFixed(2)} ${currency}`;
+            } else {
+                document.getElementById('discountRow').style.display = 'none';
+                document.getElementById('displayPrice').innerText = `$${basePrice} ${currency}`;
+            }
+
+            const dtPrice = currentChart["Deep Tissue"]["60"];
+            const swPrice = currentChart["Swedish Massage"]["60"];
+            const servicePrices = document.querySelectorAll('.service-card-price');
+            if(servicePrices.length >= 3) {
+                servicePrices[0].innerText = `$${dtPrice} ${currency}`;
+                servicePrices[1].innerText = `$${swPrice} ${currency}`;
+                servicePrices[2].innerText = `$${swPrice} ${currency}`;
+            }
+        }
+
+        async function applyPromoCode() {
+            const promoInput = document.getElementById('promoCode').value.trim();
+            const statusElem = document.getElementById('promoStatus');
+            const currency = document.getElementById('currency').value;
+            const service = document.getElementById('serviceType').value;
+            const duration = document.getElementById('duration').value;
+            const currentChart = priceChart[currency] || priceChart["CAD"];
+            const basePrice = currentChart[service] && currentChart[service][duration] ? currentChart[service][duration] : 110;
+
+            if (!promoInput) {
+                statusElem.style.color = '#ef4444';
+                statusElem.innerText = 'Please enter a promo code.';
+                return;
+            }
+
+            try {
+                const res = await fetch('/api/validate-promo', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ promoCode: promoInput, baseAmount: basePrice, currency: currency })
+                });
+
+                const data = await res.json();
+
+                if (data.valid) {
+                    activeDiscountPercent = data.discountPercent / 100;
+                    activeAppliedCode = data.code;
+                    statusElem.style.color = '#16a34a';
+                    statusElem.innerText = `Promo code "${data.code}" applied! (${data.discountPercent}% OFF)`;
+                    updatePrice();
+                } else {
+                    activeDiscountPercent = 0;
+                    activeAppliedCode = "";
+                    statusElem.style.color = '#ef4444';
+                    statusElem.innerText = data.message || 'Invalid or expired promo code.';
+                    updatePrice();
+                }
+            } catch (err) {
+                statusElem.style.color = '#ef4444';
+                statusElem.innerText = 'Unable to validate code at this time.';
+            }
+        }
+
+        window.addEventListener('DOMContentLoaded', () => {
+            const urlParams = new URLSearchParams(window.location.search);
+            const currencyParam = urlParams.get('currency');
+            const promoParam = urlParams.get('promo');
+
+            if (currencyParam && (currencyParam.toUpperCase() === 'USD' || currencyParam.toUpperCase() === 'CAD')) {
+                document.getElementById('currency').value = currencyParam.toUpperCase();
+            }
+
+            if (promoParam) {
+                document.getElementById('promoCode').value = promoParam;
+                applyPromoCode();
+            } else {
+                updatePrice();
+            }
+        });
+
+        // Enforce mandatory payment redirect upon booking submission
+        document.getElementById('bookingForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const btn = document.getElementById('submitBtn');
+            btn.innerText = 'Processing Booking...';
+            btn.disabled = true;
+
+            const selectedCurrency = document.getElementById('currency').value;
+            const rawPrice = document.getElementById('displayPrice').innerText.replace('$','').replace(selectedCurrency,'').trim();
+
+            const payload = {
+                fullName: document.getElementById('fullName').value,
+                phone: document.getElementById('phone').value,
+                email: document.getElementById('email').value,
+                address: document.getElementById('address').value,
+                preferredTherapist: document.getElementById('preferredTherapist').value,
+                serviceType: document.getElementById('serviceType').value,
+                duration: document.getElementById('duration').value,
+                date: document.getElementById('date').value,
+                timeSlot: document.getElementById('timeSlot').value,
+                currency: selectedCurrency,
+                amount: rawPrice,
+                promoCode: activeAppliedCode,
+                status: 'pending_payment' // Marked as unpaid until payment completion
+            };
+
+            try {
+                const res = await fetch('/api/booking', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(payload)
+                });
+                const data = await res.json();
+
+                if (data.success) {
+                    // Mandatory redirect to payment portal to confirm booking
+                    window.location.href = `payment.html?name=${encodeURIComponent(payload.fullName)}&email=${encodeURIComponent(payload.email)}&amount=${encodeURIComponent(data.amount || rawPrice)}&currency=${encodeURIComponent(payload.currency)}&id=${encodeURIComponent(data.bookingId)}&promo=${encodeURIComponent(activeAppliedCode)}&therapist=${encodeURIComponent(payload.preferredTherapist)}`;
+                } else {
+                    alert('Error submitting booking details. Please try again.');
+                    btn.innerText = 'Proceed to Mandatory Payment';
+                    btn.disabled = false;
+                }
+            } catch (err) {
+                alert('Connection error. Please check your network.');
+                btn.innerText = 'Proceed to Mandatory Payment';
+                btn.disabled = false;
+            }
+        });
+    </script>
+</body>
+</html>

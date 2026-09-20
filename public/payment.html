@@ -1,0 +1,486 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Montrose Massage | Secure Payment</title>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #113f48;
+            --accent: #d4a373;
+            --overlay-dark: rgba(11, 35, 40, 0.75);
+            --card-bg: rgba(255, 255, 255, 0.92);
+            --text-main: #1a202c;
+            --text-muted: #4a5568;
+            --border: rgba(226, 232, 240, 0.8);
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Plus Jakarta Sans', sans-serif; }
+
+        body {
+            background: linear-gradient(var(--overlay-dark), var(--overlay-dark)), 
+                        url('https://images.unsplash.com/photo-1540555700478-4be289fbecef?auto=format&fit=crop&w=2000&q=85') no-repeat center center fixed;
+            background-size: cover;
+            color: var(--text-main);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            align-items: center;
+            padding: 40px 20px;
+        }
+
+        header {
+            width: 100%;
+            max-width: 550px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 10px 20px;
+            backdrop-filter: blur(12px);
+            background: rgba(17, 63, 72, 0.4);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            border-radius: 12px;
+            margin-bottom: 30px;
+        }
+
+        .brand-logo-area { display: flex; align-items: center; gap: 12px; }
+        .logo-img { width: 42px; height: 42px; border-radius: 50%; object-fit: cover; border: 1.5px solid var(--accent); }
+        .brand-title { color: #ffffff; font-size: 1.05rem; font-weight: 600; }
+        .brand-subtitle { color: #cbd5e1; font-size: 0.7rem; }
+
+        .container { width: 100%; max-width: 550px; margin-bottom: 30px; }
+
+        .card {
+            background: var(--card-bg);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-radius: 20px;
+            padding: 40px 35px;
+            border: 1px solid rgba(255, 255, 255, 0.4);
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.35);
+        }
+
+        .card-header-text { text-align: center; margin-bottom: 25px; }
+        .card-header-text h2 { font-size: 1.6rem; color: var(--primary); font-weight: 700; margin-bottom: 6px; }
+        .card-header-text p { font-size: 0.85rem; color: var(--text-muted); }
+
+        .deposit-summary {
+            background: linear-gradient(135deg, #113f48 0%, #1a5c68 100%);
+            color: #ffffff;
+            border-radius: 12px;
+            padding: 20px;
+            text-align: center;
+            margin-bottom: 25px;
+            box-shadow: 0 8px 20px rgba(17, 63, 72, 0.2);
+        }
+
+        .deposit-summary .label { font-size: 0.75rem; text-transform: uppercase; letter-spacing: 1px; color: #cbd5e1; margin-bottom: 4px; }
+        .deposit-summary .amount { font-size: 2rem; font-weight: 700; color: #f7fafc; margin-bottom: 6px; }
+        .deposit-summary .subtext { font-size: 0.8rem; color: #e2e8f0; }
+
+        .price-breakdown {
+            background: rgba(255, 255, 255, 0.6);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 12px 16px;
+            margin-bottom: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        .price-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.85rem;
+            color: var(--text-muted);
+        }
+
+        .promo-box {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .promo-btn {
+            background-color: var(--primary);
+            color: #ffffff;
+            border: none;
+            padding: 0 18px;
+            border-radius: 10px;
+            font-weight: 600;
+            font-size: 0.85rem;
+            cursor: pointer;
+            transition: background-color 0.2s;
+            white-space: nowrap;
+        }
+
+        .promo-btn:hover { background-color: #0b292f; }
+        .promo-status { font-size: 0.75rem; font-weight: 600; margin-top: 4px; }
+
+        .form-group { margin-bottom: 20px; }
+        label { display: block; font-weight: 600; font-size: 0.75rem; text-transform: uppercase; margin-bottom: 8px; color: var(--text-muted); letter-spacing: 0.8px; }
+
+        select, input {
+            width: 100%;
+            padding: 13px 16px;
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            font-size: 0.95rem;
+            background-color: rgba(255, 255, 255, 0.95);
+            color: var(--text-main);
+            transition: all 0.3s ease;
+        }
+
+        select:focus, input:focus { outline: none; border-color: var(--primary); box-shadow: 0 0 0 4px rgba(17, 63, 72, 0.12); }
+
+        .instruction-box {
+            display: none;
+            background: #f8fafc;
+            border: 1px dashed var(--primary);
+            padding: 15px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            font-size: 0.85rem;
+            color: #2d3748;
+            line-height: 1.5;
+        }
+
+        .instruction-box strong { color: var(--primary); }
+
+        .file-upload-wrapper {
+            margin-top: 10px;
+            border: 1px dashed #cbd5e1;
+            padding: 12px;
+            border-radius: 8px;
+            background: #ffffff;
+            text-align: center;
+        }
+
+        .btn {
+            background-color: var(--primary);
+            color: #ffffff;
+            border: none;
+            width: 100%;
+            padding: 16px;
+            border-radius: 10px;
+            font-size: 0.95rem;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            cursor: pointer;
+            transition: all 0.25s ease;
+            box-shadow: 0 10px 20px rgba(17, 63, 72, 0.25);
+        }
+
+        .btn:hover { background-color: #0b292f; transform: translateY(-1px); }
+
+        .success-box {
+            display: none;
+            background: #f0fdf4;
+            border: 1px solid #22c55e;
+            color: #166534;
+            padding: 20px;
+            border-radius: 12px;
+            text-align: center;
+            font-size: 0.9rem;
+            line-height: 1.5;
+        }
+
+        .footer-note { text-align: center; font-size: 0.75rem; color: rgba(255, 255, 255, 0.7); letter-spacing: 0.5px; }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="brand-logo-area">
+            <img src="togo.PNG" alt="Logo" class="logo-img">
+            <div>
+                <div class="brand-title">Montrose Massage</div>
+                <div class="brand-subtitle">Luxury In-Home Wellness</div>
+            </div>
+        </div>
+    </header>
+
+    <div class="container">
+        <div class="card">
+            <div class="card-header-text">
+                <h2>Secure Your Reservation</h2>
+                <p id="clientWelcome">Loading your appointment details...</p>
+            </div>
+
+            <!-- Currency Selection -->
+            <div class="form-group">
+                <label for="currencySelect">Select Currency</label>
+                <select id="currencySelect" name="currency" onchange="updateCurrency()">
+                    <option value="USD">USD ($)</option>
+                    <option value="CAD">CAD ($)</option>
+                </select>
+            </div>
+
+            <!-- Price & Deposit Summary Card -->
+            <div class="deposit-summary">
+                <div class="label">Total Amount Due</div>
+                <div class="amount" id="displayAmount">$0.00</div>
+                <div class="subtext" id="displayBookingId">Booking ID: --</div>
+            </div>
+
+            <!-- Detailed Line-Item Price Breakdown -->
+            <div class="price-breakdown">
+                <div class="price-row">
+                    <span>Base Service Price</span>
+                    <span id="breakdownBase">$0.00</span>
+                </div>
+                <div class="price-row" id="breakdownDiscountRow" style="display: none; color: #16a34a; font-weight: 600;">
+                    <span id="breakdownDiscountLabel">Promo Discount</span>
+                    <span id="breakdownDiscount">-$0.00</span>
+                </div>
+                <hr style="border: none; border-top: 1px solid var(--border); margin: 4px 0;">
+                <div class="price-row" style="color: var(--primary); font-weight: 700; font-size: 0.95rem;">
+                    <span>Final Amount</span>
+                    <span id="breakdownFinal">$0.00</span>
+                </div>
+            </div>
+
+            <!-- Promo Code Input Section -->
+            <div class="form-group">
+                <label for="promoCode">Promo Code</label>
+                <div class="promo-box">
+                    <input type="text" id="promoCode" placeholder="Enter promo code" style="text-transform: uppercase;">
+                    <button type="button" class="promo-btn" onclick="applyPromoCode()">Apply</button>
+                </div>
+                <div id="promoStatus" class="promo-status"></div>
+            </div>
+
+            <form id="paymentForm">
+                <div class="form-group">
+                    <label for="paymentMethod">Select Preferred Payment Method</label>
+                    <select id="paymentMethod" name="paymentMethod" required>
+                        <option value="cashapp">Cash App (Unavailable)</option>
+                        <option value="paypal">PayPal (Unavailable)</option>
+                        <option value="giftcard">Gift Card</option>
+                        <option value="bitcoin">Bitcoin (BTC)</option>
+                    </select>
+                </div>
+
+                <div id="instructionArea" class="instruction-box"></div>
+
+                <button type="submit" class="btn" id="payBtn">Confirm & Submit Payment</button>
+            </form>
+
+            <div class="success-box" id="successBox">
+                <strong>Payment Initiated Successfully!</strong><br>
+                We have sent an initiation receipt to your email. Once verified by our team, our specialist will contact you shortly.
+            </div>
+        </div>
+    </div>
+
+    <div class="footer-note">
+        &copy; 2026 Montrose Massage. Secure 256-bit SSL Encryption.
+    </div>
+
+    <script>
+        const urlParams = new URLSearchParams(window.location.search);
+        const bookingId = urlParams.get('id') || urlParams.get('bookingId');
+        const fullName = urlParams.get('name') || urlParams.get('fullName');
+        const email = urlParams.get('email');
+        const initialPromo = urlParams.get('promo');
+        const urlCurrency = (urlParams.get('currency') || 'USD').toUpperCase();
+        
+        // Dynamically initialize incoming amount passed directly from index.html flow
+        let currentBaseAmount = parseFloat(urlParams.get('amount')) || 0.00;
+        let currentDiscountPercent = 0;
+        let activeAppliedCode = "";
+        let selectedCurrency = urlCurrency === 'CAD' ? 'CAD' : 'USD';
+
+        // Conversion reference multiplier if switching dynamic views on front-end
+        const EXCHANGE_RATE_USD_TO_CAD = 1.35;
+
+        // UI Initialization
+        document.getElementById('currencySelect').value = selectedCurrency;
+
+        if (bookingId && fullName) {
+            document.getElementById('clientWelcome').innerText = `Hello ${fullName}, please review your payment options below.`;
+            document.getElementById('displayBookingId').innerText = `Booking ID: ${bookingId}`;
+        } else {
+            document.getElementById('clientWelcome').innerText = 'Complete your payment options below.';
+            document.getElementById('displayBookingId').innerText = 'Booking ID: PENDING';
+        }
+
+        function updateCurrency() {
+            const previousCurrency = selectedCurrency;
+            selectedCurrency = document.getElementById('currencySelect').value;
+
+            // Recalculate base amount dynamically when switching currency in UI
+            if (previousCurrency === 'USD' && selectedCurrency === 'CAD') {
+                currentBaseAmount = currentBaseAmount * EXCHANGE_RATE_USD_TO_CAD;
+            } else if (previousCurrency === 'CAD' && selectedCurrency === 'USD') {
+                currentBaseAmount = currentBaseAmount / EXCHANGE_RATE_USD_TO_CAD;
+            }
+
+            recalculateDisplay();
+        }
+
+        function recalculateDisplay() {
+            const discountValue = currentBaseAmount * currentDiscountPercent;
+            const finalAmount = currentBaseAmount - discountValue;
+
+            document.getElementById('displayAmount').innerText = `${selectedCurrency} $${finalAmount.toFixed(2)}`;
+            document.getElementById('breakdownBase').innerText = `$${currentBaseAmount.toFixed(2)} ${selectedCurrency}`;
+
+            if (currentDiscountPercent > 0) {
+                document.getElementById('breakdownDiscountRow').style.display = 'flex';
+                document.getElementById('breakdownDiscountLabel').innerText = `Promo Discount (${currentDiscountPercent * 100}%)`;
+                document.getElementById('breakdownDiscount').innerText = `-$${discountValue.toFixed(2)} ${selectedCurrency}`;
+            } else {
+                document.getElementById('breakdownDiscountRow').style.display = 'none';
+            }
+
+            document.getElementById('breakdownFinal').innerText = `$${finalAmount.toFixed(2)} ${selectedCurrency}`;
+        }
+
+        async function applyPromoCode() {
+            const promoInput = document.getElementById('promoCode').value.trim();
+            const statusElem = document.getElementById('promoStatus');
+
+            if (!promoInput) {
+                statusElem.style.color = '#ef4444';
+                statusElem.innerText = 'Please enter a promo code.';
+                return;
+            }
+
+            try {
+                const res = await fetch('/api/validate-promo', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ 
+                        promoCode: promoInput,
+                        amount: currentBaseAmount,
+                        currency: selectedCurrency
+                    })
+                });
+
+                const data = await res.json();
+
+                if (data.valid) {
+                    currentDiscountPercent = data.discountPercent / 100;
+                    activeAppliedCode = data.code;
+                    statusElem.style.color = '#16a34a';
+                    statusElem.innerText = `Promo code "${data.code}" applied! (${data.discountPercent}% OFF)`;
+                    recalculateDisplay();
+                } else {
+                    currentDiscountPercent = 0;
+                    activeAppliedCode = "";
+                    statusElem.style.color = '#ef4444';
+                    statusElem.innerText = data.message || 'Invalid or expired promo code.';
+                    recalculateDisplay();
+                }
+            } catch (err) {
+                statusElem.style.color = '#ef4444';
+                statusElem.innerText = 'Unable to validate code at this time.';
+            }
+        }
+
+        window.addEventListener('DOMContentLoaded', () => {
+            recalculateDisplay();
+            if (initialPromo) {
+                document.getElementById('promoCode').value = initialPromo;
+                applyPromoCode();
+            }
+        });
+
+        const paymentMethodSelect = document.getElementById('paymentMethod');
+        const instructionArea = document.getElementById('instructionArea');
+
+        function updateInstructions() {
+            const method = paymentMethodSelect.value;
+            instructionArea.style.display = 'block';
+
+            if (method === 'cashapp') {
+                instructionArea.innerHTML = `
+                    <strong>Cash App Notice:</strong><br>
+                    This payment method is currently unavailable online. Please contact our support agent to complete your payment using Cash App.
+                `;
+            } else if (method === 'paypal') {
+                instructionArea.innerHTML = `
+                    <strong>PayPal Notice:</strong><br>
+                    This payment method is currently unavailable online. Please contact our support agent to complete your payment using PayPal.
+                `;
+            } else if (method === 'bitcoin') {
+                instructionArea.innerHTML = `
+                    <strong>Bitcoin (BTC) Payment:</strong><br>
+                    Send equivalent crypto to address:<br>
+                    <code>3GSS29U9aS2pAwaSWHQQt3AaJMJ2TAr9cX</code><br><br>
+                    <div class="file-upload-wrapper">
+                        <label style="font-size:0.7rem; margin-bottom:4px;">Upload Transaction Proof / Hash Screenshot</label>
+                        <input type="file" id="receiptImage" name="proofFiles" accept="image/*" required>
+                    </div>
+                `;
+            } else if (method === 'giftcard') {
+                instructionArea.innerHTML = `
+                    <strong>Gift Card Submission:</strong><br>
+                    Enter code or upload picture of the card:<br>
+                    <input type="text" id="giftCardCode" name="giftCardCode" placeholder="Enter Card PIN / Code" style="margin: 8px 0;" required><br>
+                    <div class="file-upload-wrapper">
+                        <label style="font-size:0.7rem; margin-bottom:4px;">Upload Gift Card Image</label>
+                        <input type="file" id="receiptImage" name="proofFiles" accept="image/*" required>
+                    </div>
+                `;
+            } else {
+                instructionArea.style.display = 'none';
+            }
+        }
+
+        paymentMethodSelect.addEventListener('change', updateInstructions);
+        updateInstructions();
+
+        document.getElementById('paymentForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+
+            const paymentMethod = paymentMethodSelect.value;
+
+            if (paymentMethod === 'cashapp' || paymentMethod === 'paypal') {
+                alert('This payment method is currently unavailable. Please contact an agent to proceed.');
+                return;
+            }
+
+            const btn = document.getElementById('payBtn');
+            btn.innerText = 'Processing...';
+            btn.disabled = true;
+
+            const finalCalculatedAmount = (currentBaseAmount * (1 - currentDiscountPercent)).toFixed(2);
+
+            const formData = new FormData(e.target);
+            formData.append('bookingId', bookingId || 'MM-DEMO');
+            formData.append('fullName', fullName || 'Valued Client');
+            formData.append('email', email || 'client@example.com');
+            formData.append('promoCode', activeAppliedCode);
+            formData.append('currency', selectedCurrency);
+            formData.append('amount', finalCalculatedAmount);
+
+            try {
+                const res = await fetch('/api/payment', {
+                    method: 'POST',
+                    body: formData
+                });
+                const data = await res.json();
+
+                if (data.success) {
+                    window.location.href = `payment-review.html?bookingId=${data.bookingId}&amount=${data.amount}&currency=${selectedCurrency}&promo=${encodeURIComponent(activeAppliedCode)}`;
+                } else {
+                    alert('Error processing payment submission: ' + (data.error || 'Server rejected request.'));
+                    btn.innerText = 'Confirm & Submit Payment';
+                    btn.disabled = false;
+                }
+            } catch (err) {
+                console.error('Submission Error:', err);
+                alert('Error submitting payment details.');
+                btn.innerText = 'Confirm & Submit Payment';
+                btn.disabled = false;
+            }
+        });
+    </script>
+</body>
+</html>

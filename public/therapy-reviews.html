@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Therapist Profile & Reviews</title>
+    <style>
+        :root {
+            --primary: #1e3a8a;
+            --bg-light: #f8fafc;
+            --card-bg: #ffffff;
+            --text-dark: #0f172a;
+            --text-muted: #475569;
+            --accent: #0d9488;
+            --border: #e2e8f0;
+            --star: #f59e0b;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; }
+        body { background-color: var(--bg-light); color: var(--text-dark); padding: 2rem 1rem; }
+        .container { max-width: 900px; margin: 0 auto; }
+        
+        .back-link { display: inline-block; margin-bottom: 1.5rem; color: var(--primary); text-decoration: none; font-weight: 600; }
+        
+        .profile-card {
+            background: var(--card-bg);
+            border-radius: 12px;
+            border: 1px solid var(--border);
+            padding: 2rem;
+            display: flex;
+            gap: 2rem;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+            margin-bottom: 2rem;
+        }
+
+        .profile-card img { width: 220px; height: 220px; object-fit: cover; border-radius: 8px; }
+        .profile-info h1 { font-size: 2rem; color: var(--primary); }
+        .specialty-badge { display: inline-block; background: #ccfbf1; color: var(--accent); font-weight: 600; font-size: 0.8rem; padding: 0.3rem 0.6rem; border-radius: 4px; margin: 0.5rem 0 1rem 0; }
+        .bio { color: var(--text-muted); margin-bottom: 1rem; line-height: 1.6; }
+
+        .contact-details {
+            margin-bottom: 1.5rem;
+            font-size: 0.95rem;
+            color: var(--text-dark);
+            line-height: 1.5;
+        }
+
+        .contact-details a {
+            color: var(--primary);
+            text-decoration: none;
+        }
+
+        .btn-group {
+            display: flex;
+            gap: 0.75rem;
+            flex-wrap: wrap;
+        }
+
+        .book-btn { display: inline-block; padding: 0.75rem 1.25rem; background: var(--accent); color: white; border-radius: 6px; text-decoration: none; font-weight: 600; }
+        .contact-btn { display: inline-block; padding: 0.75rem 1.25rem; background: var(--primary); color: white; border-radius: 6px; text-decoration: none; font-weight: 600; }
+
+        .reviews-section {
+            background: var(--card-bg);
+            border-radius: 12px;
+            border: 1px solid var(--border);
+            padding: 2rem;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+        }
+
+        .reviews-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border-bottom: 1px solid var(--border);
+            padding-bottom: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .score-box { text-align: right; }
+        .score-box .stars { color: var(--star); font-size: 1.2rem; }
+
+        .review-item { border-bottom: 1px solid var(--border); padding-bottom: 1.25rem; margin-bottom: 1.25rem; }
+        .review-item:last-child { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
+        .reviewer-meta { display: flex; justify-content: space-between; font-size: 0.9rem; margin-bottom: 0.4rem; }
+        .reviewer-name { font-weight: 700; }
+        .review-date { color: var(--text-muted); }
+        .review-stars { color: var(--star); margin-bottom: 0.5rem; }
+
+        @media (max-width: 640px) {
+            .profile-card { flex-direction: column; }
+            .profile-card img { width: 100%; height: auto; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <a href="index.html" class="back-link">← Back to All Therapists</a>
+
+        <div class="profile-card">
+            <img id="therapist-img" src="" alt="Therapist Image">
+            <div class="profile-info">
+                <h1 id="therapist-name">Practitioner</h1>
+                <span class="specialty-badge" id="therapist-specialty">Specialty</span>
+                <p class="bio" id="therapist-bio">Biography loading...</p>
+                
+                <div class="contact-details">
+                    <p><strong>Email:</strong> <a id="therapist-email" href="#"></a></p>
+                    <p><strong>Phone:</strong> <a id="therapist-phone" href="#"></a></p>
+                </div>
+
+                <div class="btn-group">
+                    <a href="index.html" class="book-btn">Book Session</a>
+                    <a id="therapist-contact-btn" href="#" class="contact-btn">Email Practitioner</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="reviews-section">
+            <div class="reviews-header">
+                <h2>Client Reviews</h2>
+                <div class="score-box">
+                    <div class="stars">★★★★★ <strong id="overall-score">4.9</strong></div>
+                    <small id="total-reviews-count">Based on 700+ verified client reviews</small>
+                </div>
+            </div>
+
+            <div id="reviews-list">
+                <!-- Reviews injected dynamically -->
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const data = {
+            lucia: {
+                name: "Lucia Bass",
+                specialty: "Deep Tissue & Sports",
+                email: "bass6782026@gmail.com",
+                phone: "(719)629-4153",
+                image: "lucia.PNG",
+                bio: "Lucia brings 8+ years of expertise in high-impact recovery therapy. She focuses on targeted muscle relief, joint mobilization, and long-term postural corrections.",
+                score: "4.9",
+                count: "742 verified reviews",
+                reviews: [
+                    { name: "Sarah M.", date: "2 days ago", stars: "★★★★★", text: "Lucia completely relieved the severe tension in my shoulders. Absolutely incredible session!" },
+                    { name: "David K.", date: "1 week ago", stars: "★★★★★", text: "Best deep tissue session I have ever received. She really targets the exact trouble spots." },
+                    { name: "Jessica T.", date: "2 weeks ago", stars: "★★★★★", text: "Very professional, knowledgeable, and effective. Highly recommend for sports recovery." }
+                ]
+            },
+            veronica: {
+                name: "Veronica Ochoa",
+                specialty: "Swedish & Trigger Point",
+                email: "veronicaochoa569@outlook.com",
+                phone: "(949)649-3304",
+                image: "veronica.PNG",
+                bio: "Veronica specializes in soothing stress reduction and detailed trigger point work. She customizes every session to restore balance and relieve body fatigue.",
+                score: "4.8",
+                count: "718 verified reviews",
+                reviews: [
+                    { name: "Robert L.", date: "Yesterday", stars: "★★★★★", text: "Veronica has a super calming presence. I left feeling completely stress-free." },
+                    { name: "Amanda B.", date: "3 days ago", stars: "★★★★★", text: "Great trigger point work! My lower back pain was completely gone after one visit." }
+                ]
+            },
+            friedrich: {
+                name: "Friedrich Adolf",
+                specialty: "Holistic & Prenatal",
+                email: "friedrichadolf21@gmail.com",
+                phone: "(910)303-7016",
+                image: "friedrich.PNG",
+                bio: "With over 10 years of experience, friedrich offers specialized prenatal care and restorative holistic therapies designed to ease physical discomfort.",
+                score: "5.0",
+                count: "789 verified reviews",
+                reviews: [
+                    { name: "Emily R.", date: "4 days ago", stars: "★★★★★", text: "friedrich Adolf made me feel so comfortable throughout my prenatal session. Unmatched care!" },
+                    { name: "Chloe H.", date: "1 week ago", stars: "★★★★★", text: "A truly holistic healing experience. friedrich Adolf is hands down the best practitioner in town." }
+                ]
+            },
+            malone: {
+                name: "Malone Alexis",
+                specialty: "Sports & Myofascial",
+                email: "malonealexi080@gmail.com",
+                phone: "(555) 567-8901",
+                image: "malone.PNG",
+                bio: "Malone Alexis works primarily with athletes and active individuals to improve mobility, boost recovery speed, and deliver targeted myofascial release.",
+                score: "4.9",
+                count: "704 verified reviews",
+                reviews: [
+                    { name: "Michael P.", date: "3 days ago", stars: "★★★★★", text: "Malone helped me recover in record time before my marathon. Excellent mobility work!" },
+                    { name: "Brian K.", date: "5 days ago", stars: "★★★★★", text: "Incredible technique and very knowledgeable about athletic recovery." }
+                ]
+            }
+        };
+
+        const params = new URLSearchParams(window.location.search);
+        const therapistId = (params.get('therapist') || params.get('id') || 'lucia').toLowerCase();
+        const profile = data[therapistId] || data['lucia'];
+
+        document.getElementById('therapist-img').src = profile.image;
+        document.getElementById('therapist-name').innerText = profile.name;
+        document.getElementById('therapist-specialty').innerText = profile.specialty;
+        document.getElementById('therapist-bio').innerText = profile.bio;
+        document.getElementById('overall-score').innerText = profile.score;
+        document.getElementById('total-reviews-count').innerText = `Based on ${profile.count}`;
+
+        // Inject Contact Info
+        const emailLink = document.getElementById('therapist-email');
+        emailLink.innerText = profile.email;
+        emailLink.href = `mailto:${profile.email}`;
+
+        const phoneLink = document.getElementById('therapist-phone');
+        phoneLink.innerText = profile.phone;
+        phoneLink.href = `tel:${profile.phone.replace(/[^0-9]/g, '')}`;
+
+        const contactBtn = document.getElementById('therapist-contact-btn');
+        contactBtn.href = `mailto:${profile.email}?subject=Inquiry%20for%20${encodeURIComponent(profile.name)}`;
+
+        const reviewsContainer = document.getElementById('reviews-list');
+        profile.reviews.forEach(rev => {
+            const item = document.createElement('div');
+            item.className = 'review-item';
+            item.innerHTML = `
+                <div class="reviewer-meta">
+                    <span class="reviewer-name">${rev.name}</span>
+                    <span class="review-date">${rev.date}</span>
+                </div>
+                <div class="review-stars">${rev.stars}</div>
+                <p>${rev.text}</p>
+            `;
+            reviewsContainer.appendChild(item);
+        });
+    </script>
+</body>
+</html>
