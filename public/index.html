@@ -489,14 +489,14 @@
                     <source src="video1.mp4" type="video/mp4">
                 </video>
             </div>
-            <a href="therapy-reviews.html?therapist=Lucia" class="book-now-btn reviews-lins-btn">Read 700+ Reviews</a>
+            <a href="therapy-reviews.html?therapist=Lucia" class="book-now-btn reviews-link-btn">Read 700+ Reviews</a>
             <button class="book-now-btn" onclick="selectTherapistAndScroll('Lucia Bass')">Book Now</button>
         </div>
 
         <!-- Practitioner 2 -->
         <div class="therapist-card">
             <a href="therapy-reviews.html?therapist=veronica" class="therapist-link">
-                <img src="Veronica.PNGg" alt="Veronica Ochoa" class="therapist-avatar">
+                <img src="Veronica.PNG" alt="Veronica Ochoa" class="therapist-avatar">
                 <h3 class="therapist-name">Veronica Ochoa</h3>
             </a>
             <span class="specialty-badge">Swedish & Trigger Point</span>
@@ -546,6 +546,42 @@
             <a href="therapy-reviews.html?therapist=Malone" class="book-now-btn reviews-link-btn">Read 700+ Reviews</a>
             <button class="book-now-btn" onclick="selectTherapistAndScroll('Malone Alexis')">Book Now</button>
         </div>
+
+        <!-- Practitioner 5 -->
+        <div class="therapist-card">
+            <a href="therapy-reviews.html?therapist=YourChristine" class="therapist-link">
+                <img src="YourChristine.PNG" alt="YourChristine" class="therapist-avatar">
+                <h3 class="therapist-name">YourChristine</h3>
+            </a>
+            <span class="specialty-badge">Reflexology & Lymphatic</span>
+            <div class="rating-box"><span>★ 4.9</span> (725 verified reviews)</div>
+            <p class="therapist-bio">Specializes in manual lymphatic drainage and precision reflexology for swelling reduction and restored vitality.</p>
+            <div class="therapist-video-wrapper">
+                <video class="therapist-video" controls poster="video4-poster.jpg">
+                    <source src="video4.mp4" type="video/mp4">
+                </video>
+            </div>
+            <a href="therapy-reviews.html?therapist=YourChristine" class="book-now-btn reviews-link-btn">Read 700+ Reviews</a>
+            <button class="book-now-btn" onclick="selectTherapistAndScroll('YourChristine')">Book Now</button>
+        </div>
+
+        <!-- Practitioner 6 -->
+        <div class="therapist-card">
+            <a href="therapy-reviews.html?therapist=sexton" class="therapist-link">
+                <img src="sexton.png" alt="Sexton Thorne" class="therapist-avatar">
+                <h3 class="therapist-name">Sexton Thorne</h3>
+            </a>
+            <span class="specialty-badge">Neuromuscular & Aroma</span>
+            <div class="rating-box"><span>★ 5.0</span> (760 verified reviews)</div>
+            <p class="therapist-bio">Expert in targeted neuromuscular therapy combined with custom therapeutic aromatherapy for chronic tension.</p>
+            <div class="therapist-video-wrapper">
+                <video class="therapist-video" controls poster="video1-poster.jpg">
+                    <source src="video1.mp4" type="video/mp4">
+                </video>
+            </div>
+            <a href="therapy-reviews.html?therapist=sexton" class="book-now-btn reviews-link-btn">Read 700+ Reviews</a>
+            <button class="book-now-btn" onclick="selectTherapistAndScroll('Sexton Thorne')">Book Now</button>
+        </div>
     </div>
 
     <!-- SECTION 2: Booking Form -->
@@ -563,6 +599,7 @@
                         <select id="currency" onchange="updatePrice()">
                             <option value="USD">🇺🇸 USD - United States Dollar ($)</option>
                             <option value="CAD" selected>🇨🇦 CAD - Canadian Dollar ($)</option>
+                            <option value="GBP">🇬🇧 GBP - British Pound Sterling (£)</option>
                         </select>
                     </div>
 
@@ -590,10 +627,12 @@
                         <label for="preferredTherapist">Preferred Therapist</label>
                         <select id="preferredTherapist">
                             <option value="Any Available">Any Available Specialist</option>
-                            <option value="Lucia Bass">Lucia Bass- Deep Tissue & Sports Recovery</option>
+                            <option value="Lucia Bass">Lucia Bass - Deep Tissue & Sports Recovery</option>
                             <option value="Veronica Ochoa">Veronica Ochoa - Swedish & Trigger Point</option>
-                            <option value="friedrich Adolf">friedrich Adolf - Holistic & Prenatal Specialist</option>
+                            <option value="Friedrich Adolf">Friedrich Adolf - Holistic & Prenatal Specialist</option>
                             <option value="Malone Alexis">Malone Alexis - Sports Mobility & Myofascial</option>
+                            <option value="YourChristine">YourChristine - Reflexology & Lymphatic Drainage</option>
+                            <option value="Sexton Thorne">Sexton Thorne - Neuromuscular & Aromatherapy</option>
                         </select>
                     </div>
                     
@@ -805,7 +844,7 @@
         function selectTherapistAndScroll(therapistName) {
             const selectElem = document.getElementById('preferredTherapist');
             for (let i = 0; i < selectElem.options.length; i++) {
-                if (selectElem.options[i].value.includes(therapistName)) {
+                if (selectElem.options[i].value.toLowerCase().includes(therapistName.toLowerCase())) {
                     selectElem.selectedIndex = i;
                     break;
                 }
@@ -816,6 +855,12 @@
         function scrollToBooking() {
             document.getElementById('bookingFormSection').scrollIntoView({ behavior: 'smooth' });
         }
+
+        const currencySymbols = {
+            "CAD": "$",
+            "USD": "$",
+            "GBP": "£"
+        };
 
         const priceChart = {
             "CAD": {
@@ -829,6 +874,12 @@
                 "Deep Tissue":     { "60": 100, "90": 125, "120": 155 },
                 "Couples Massage": { "60": 170, "90": 215, "120": 270 },
                 "Prenatal Massage":{ "60": 95,  "90": 120, "120": 150 }
+            },
+            "GBP": {
+                "Swedish Massage": { "60": 65,  "90": 90,  "120": 115 },
+                "Deep Tissue":     { "60": 75,  "90": 100, "120": 125 },
+                "Couples Massage": { "60": 130, "90": 170, "120": 210 },
+                "Prenatal Massage":{ "60": 70,  "90": 95,  "120": 120 }
             }
         };
 
@@ -839,32 +890,33 @@
             const currency = document.getElementById('currency').value;
             const service = document.getElementById('serviceType').value;
             const duration = document.getElementById('duration').value;
+            const symbol = currencySymbols[currency] || "$";
             
             const currentChart = priceChart[currency] || priceChart["CAD"];
             const basePrice = currentChart[service] && currentChart[service][duration] ? currentChart[service][duration] : 110;
 
             document.getElementById('totalPriceLabel').innerText = `Total Price (${currency})`;
-            document.getElementById('basePriceDisplay').innerText = `$${basePrice} ${currency}`;
+            document.getElementById('basePriceDisplay').innerText = `${symbol}${basePrice} ${currency}`;
 
             if (activeDiscountPercent > 0) {
                 const discountAmount = basePrice * activeDiscountPercent;
                 const finalPrice = basePrice - discountAmount;
 
-                document.getElementById('discountDisplay').innerText = `-$${discountAmount.toFixed(2)} ${currency}`;
+                document.getElementById('discountDisplay').innerText = `-${symbol}${discountAmount.toFixed(2)} ${currency}`;
                 document.getElementById('discountRow').style.display = 'flex';
-                document.getElementById('displayPrice').innerText = `$${finalPrice.toFixed(2)} ${currency}`;
+                document.getElementById('displayPrice').innerText = `${symbol}${finalPrice.toFixed(2)} ${currency}`;
             } else {
                 document.getElementById('discountRow').style.display = 'none';
-                document.getElementById('displayPrice').innerText = `$${basePrice} ${currency}`;
+                document.getElementById('displayPrice').innerText = `${symbol}${basePrice} ${currency}`;
             }
 
             const dtPrice = currentChart["Deep Tissue"]["60"];
             const swPrice = currentChart["Swedish Massage"]["60"];
             const servicePrices = document.querySelectorAll('.service-card-price');
             if(servicePrices.length >= 3) {
-                servicePrices[0].innerText = `$${dtPrice} ${currency}`;
-                servicePrices[1].innerText = `$${swPrice} ${currency}`;
-                servicePrices[2].innerText = `$${swPrice} ${currency}`;
+                servicePrices[0].innerText = `${symbol}${dtPrice} ${currency}`;
+                servicePrices[1].innerText = `${symbol}${swPrice} ${currency}`;
+                servicePrices[2].innerText = `${symbol}${swPrice} ${currency}`;
             }
         }
 
@@ -916,7 +968,7 @@
             const currencyParam = urlParams.get('currency');
             const promoParam = urlParams.get('promo');
 
-            if (currencyParam && (currencyParam.toUpperCase() === 'USD' || currencyParam.toUpperCase() === 'CAD')) {
+            if (currencyParam && ['USD', 'CAD', 'GBP'].includes(currencyParam.toUpperCase())) {
                 document.getElementById('currency').value = currencyParam.toUpperCase();
             }
 
@@ -936,7 +988,7 @@
             btn.disabled = true;
 
             const selectedCurrency = document.getElementById('currency').value;
-            const rawPrice = document.getElementById('displayPrice').innerText.replace('$','').replace(selectedCurrency,'').trim();
+            const rawPrice = document.getElementById('displayPrice').innerText.replace(/[$£]/g, '').replace(selectedCurrency, '').trim();
 
             const payload = {
                 fullName: document.getElementById('fullName').value,

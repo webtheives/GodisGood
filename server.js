@@ -31,6 +31,14 @@ const PROMO_CODES = {
     'UNLOCK15': 0.15
 };
 
+// Currency Symbol Map for formatting
+const CURRENCY_SYMBOLS = {
+    'GBP': '£',
+    'CAD': '$',
+    'USD': '$',
+    'EUR': '€'
+};
+
 /**
  * Helper function to validate and compute price securely on backend 
  * using dynamically supplied base amount and currency.
@@ -38,6 +46,7 @@ const PROMO_CODES = {
 function calculateFinalPrice(rawAmount, currency = 'CAD', promoCode) {
     const basePrice = parseFloat(rawAmount) || 0.0;
     const safeCurrency = (currency || 'CAD').toUpperCase();
+    const symbol = CURRENCY_SYMBOLS[safeCurrency] || '$';
     let discountPercent = 0;
 
     if (promoCode && PROMO_CODES[promoCode.trim().toUpperCase()]) {
@@ -50,6 +59,8 @@ function calculateFinalPrice(rawAmount, currency = 'CAD', promoCode) {
     return {
         basePrice,
         currency: safeCurrency,
+        symbol,
+        formattedPrice: `${symbol}${finalPrice.toFixed(2)} ${safeCurrency}`,
         discountAmount,
         finalPrice,
         discountPercent: discountPercent * 100,
@@ -184,8 +195,10 @@ async function handleBookingSubmission(req, res) {
             bookingId,
             basePrice: priceInfo.basePrice,
             currency: priceInfo.currency,
+            symbol: priceInfo.symbol,
             discountAmount: priceInfo.discountAmount,
             amount: priceInfo.finalPrice,
+            formattedPrice: priceInfo.formattedPrice,
             promoApplied: priceInfo.appliedCode
         });
 
@@ -203,7 +216,7 @@ async function handleBookingSubmission(req, res) {
                 const promoRow = priceInfo.appliedCode ? `
                     <tr>
                         <td style="color: #94a3b8; border-bottom: 1px solid #1e293b;">Discount (${priceInfo.appliedCode}):</td>
-                        <td style="color: #34d399; font-weight: 600; text-align: right; border-bottom: 1px solid #1e293b;">-${priceInfo.discountPercent}% (-${priceInfo.currency} $${priceInfo.discountAmount.toFixed(2)})</td>
+                        <td style="color: #34d399; font-weight: 600; text-align: right; border-bottom: 1px solid #1e293b;">-${priceInfo.discountPercent}% (-${priceInfo.symbol}${priceInfo.discountAmount.toFixed(2)})</td>
                     </tr>
                 ` : '';
 
@@ -232,7 +245,7 @@ async function handleBookingSubmission(req, res) {
                         ${promoRow}
                         <tr>
                             <td style="color: #94a3b8;">Total Amount:</td>
-                            <td style="color: #34d399; font-weight: 700; text-align: right;">${priceInfo.currency} $${priceInfo.finalPrice.toFixed(2)}</td>
+                            <td style="color: #34d399; font-weight: 700; text-align: right;">${priceInfo.formattedPrice}</td>
                         </tr>
                     </table>
                 `;
@@ -301,7 +314,9 @@ async function handlePaymentSubmission(req, res) {
             success: true,
             bookingId,
             amount: priceInfo.finalPrice,
-            currency: priceInfo.currency
+            currency: priceInfo.currency,
+            symbol: priceInfo.symbol,
+            formattedPrice: priceInfo.formattedPrice
         });
 
         // Background Payment Notifications Dispatch
@@ -329,7 +344,7 @@ async function handlePaymentSubmission(req, res) {
                         </tr>
                         <tr>
                             <td style="color: #94a3b8; border-bottom: 1px solid #1e293b;">Amount Paid:</td>
-                            <td style="color: #34d399; font-weight: 700; text-align: right; border-bottom: 1px solid #1e293b;">${priceInfo.currency} $${priceInfo.finalPrice.toFixed(2)}</td>
+                            <td style="color: #34d399; font-weight: 700; text-align: right; border-bottom: 1px solid #1e293b;">${priceInfo.formattedPrice}</td>
                         </tr>
                         <tr>
                             <td style="color: #94a3b8;">Status:</td>
@@ -381,7 +396,6 @@ async function handlePaymentSubmission(req, res) {
             } catch (emailErr) {
                 console.error('Background payment email error:', emailErr);
             } finally {
-                // Safely clean up local upload files after emailing
                 for (const file of uploadedFiles) {
                     fs.unlink(file.path, (err) => {
                         if (err) console.error('Error deleting upload file:', err);
@@ -413,9 +427,11 @@ app.post('/api/validate-promo', apiLimiter, (req, res) => {
             valid: true,
             code: priceInfo.appliedCode,
             currency: priceInfo.currency,
+            symbol: priceInfo.symbol,
             discountPercent: priceInfo.discountPercent,
             discountAmount: priceInfo.discountAmount,
-            finalPrice: priceInfo.finalPrice
+            finalPrice: priceInfo.finalPrice,
+            formattedPrice: priceInfo.formattedPrice
         });
     } else {
         res.json({
@@ -436,12 +452,28 @@ app.get('/index.html', (req, res) => {
     res.sendFile(path.join(__dirname, 'public', 'index.html'));
 });
 
+app.get('/therapy-reviews', (req, res) => {
+    res.sendFile(path.join(__dirname, 'public', 'therapy-reviews.html'));
+});
+
+app.get('/therapy-reviews.html', (req, res) => {
+    res.sendFile(path.join(__dirname, 'public', 'therapy-reviews.html'));
+});
+
 app.get('/therapist-profile', (req, res) => {
-    res.sendFile(path.join(__dirname, 'public', 'therapist-profile.html'));
+    if (fs.existsSync(path.join(__dirname, 'public', 'therapy-reviews.html'))) {
+        res.sendFile(path.join(__dirname, 'public', 'therapy-reviews.html'));
+    } else {
+        res.sendFile(path.join(__dirname, 'public', 'therapist-profile.html'));
+    }
 });
 
 app.get('/therapist-profile.html', (req, res) => {
-    res.sendFile(path.join(__dirname, 'public', 'therapist-profile.html'));
+    if (fs.existsSync(path.join(__dirname, 'public', 'therapy-reviews.html'))) {
+        res.sendFile(path.join(__dirname, 'public', 'therapy-reviews.html'));
+    } else {
+        res.sendFile(path.join(__dirname, 'public', 'therapist-profile.html'));
+    }
 });
 
 app.get('/payment.html', (req, res) => {

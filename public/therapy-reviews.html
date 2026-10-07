@@ -109,7 +109,7 @@
                 </div>
 
                 <div class="btn-group">
-                    <a href="index.html" class="book-btn">Book Session</a>
+                    <a id="book-session-btn" href="index.html" class="book-btn">Book Session</a>
                     <a id="therapist-contact-btn" href="#" class="contact-btn">Email Practitioner</a>
                 </div>
             </div>
@@ -167,12 +167,12 @@
                 email: "friedrichadolf21@gmail.com",
                 phone: "(910)303-7016",
                 image: "friedrich.PNG",
-                bio: "With over 10 years of experience, friedrich offers specialized prenatal care and restorative holistic therapies designed to ease physical discomfort.",
+                bio: "With over 10 years of experience, Friedrich offers specialized prenatal care and restorative holistic therapies designed to ease physical discomfort.",
                 score: "5.0",
                 count: "789 verified reviews",
                 reviews: [
-                    { name: "Emily R.", date: "4 days ago", stars: "★★★★★", text: "friedrich Adolf made me feel so comfortable throughout my prenatal session. Unmatched care!" },
-                    { name: "Chloe H.", date: "1 week ago", stars: "★★★★★", text: "A truly holistic healing experience. friedrich Adolf is hands down the best practitioner in town." }
+                    { name: "Emily R.", date: "4 days ago", stars: "★★★★★", text: "Friedrich Adolf made me feel so comfortable throughout my prenatal session. Unmatched care!" },
+                    { name: "Chloe H.", date: "1 week ago", stars: "★★★★★", text: "A truly holistic healing experience. Friedrich Adolf is hands down the best practitioner in town." }
                 ]
             },
             malone: {
@@ -188,6 +188,34 @@
                     { name: "Michael P.", date: "3 days ago", stars: "★★★★★", text: "Malone helped me recover in record time before my marathon. Excellent mobility work!" },
                     { name: "Brian K.", date: "5 days ago", stars: "★★★★★", text: "Incredible technique and very knowledgeable about athletic recovery." }
                 ]
+            },
+            YourChristine: {
+                name: "YourChristine",
+                specialty: "Reflexology & Lymphatic",
+                email: "yourchristine7@gmail.com",
+                phone: "(302)563-9368SS",
+                image: "YourChristine.PNG",
+                bio: "YourChristine specializes in manual lymphatic drainage and precision reflexology designed for swelling reduction, gentle detoxification, and restored vitality.",
+                score: "4.9",
+                count: "725 verified reviews",
+                reviews: [
+                    { name: "Hannah W.", date: "1 day ago", stars: "★★★★★", text: "yourChristine lymphatic drainage session helped so much with post-flight swelling. I felt lighter immediately!" },
+                    { name: "Destiny E.", date: "4 days ago", stars: "★★★★★", text: "Incredible reflexology work! Precision technique and very professional atmosphere." }
+                ]
+            },
+            sexton: {
+                name: "Sexton Thorne",
+                specialty: "Neuromuscular & Aroma",
+                email: "jsmtyl1112@gmail.com",
+                phone: "(302) 563-9506",
+                image: "sexton.png",
+                bio: "Sexton is an expert in targeted neuromuscular therapy combined with custom therapeutic aromatherapy to relieve deep structural chronic tension.",
+                score: "5.0",
+                count: "760 verified reviews",
+                reviews: [
+                    { name: "Alexander P.", date: "Yesterday", stars: "★★★★★", text: "Sexton's neuromuscular technique combined with custom essential oils completely unlocked my tight neck muscles." },
+                    { name: "Sophia R.", date: "3 days ago", stars: "★★★★★", text: "Outstanding practitioner! The custom aromatherapy blend made the deep tissue work remarkably effective." }
+                ]
             }
         };
 
@@ -201,6 +229,9 @@
         document.getElementById('therapist-bio').innerText = profile.bio;
         document.getElementById('overall-score').innerText = profile.score;
         document.getElementById('total-reviews-count').innerText = `Based on ${profile.count}`;
+
+        // Dynamic URL so booking link routes back to index.html with the active therapist pre-selected
+        document.getElementById('book-session-btn').href = `index.html?therapist=${encodeURIComponent(therapistId)}`;
 
         // Inject Contact Info
         const emailLink = document.getElementById('therapist-email');
